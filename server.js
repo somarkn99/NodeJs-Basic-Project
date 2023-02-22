@@ -1,10 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-const dbConnection = require('./config/database');
 
 dotenv.config({path:'config.env'});
+const dbConnection = require('./config/database');
 const ApiError = require('./utils/apiError');
+const globalError = require('./middlewares/errorMiddleware');
 
 // DB Connection Configuration
 dbConnection();
@@ -28,17 +29,7 @@ app.all('*',(req, res, next)=>{
 });
 
 // @desc: Global Error Handling Middleware
-app.use((err,req,res,next)=>{
-  err.statusCode = err.statusCode || 500;
-  err.status = err.status || "error";
-  res.status(err.statusCode).json({
-    status: err.status,
-    error: err,
-    message: err.message,
-    // @desc: Where the error happen
-    stack: err.stack,
-  });
-});
+app.use(globalError);
 
 const PORT = process.env.PORT || 8000;
 
