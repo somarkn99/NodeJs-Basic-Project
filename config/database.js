@@ -6,10 +6,11 @@ const dbConnection = () => {
     .then((conn) => {
       console.log(`Database Connected: ${conn.connection.host}`);
     })
-    .catch((err) => {
-      console.error(`Database Error: ${err}`);
-      process.exit(1);
-    });
+    // @Note: Moved to Server.js (Handle rejection outside express)
+    // .catch((err) => {
+    //   console.error(`Database Error: ${err}`);
+    //   process.exit(1);
+    // });
 };
 
 module.exports = dbConnection;
