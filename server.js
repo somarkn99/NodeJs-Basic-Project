@@ -8,7 +8,6 @@ dotenv.config({path:'config.env'});
 // DB Connection Configuration
 dbConnection();
 
-
 // express app
 const app = express();
 
@@ -20,6 +19,12 @@ if (process.env.NODE_ENV === 'development') {
     console.log(`You App is running in ${process.env.NODE_ENV} mode`);
 }
 
+// Routes
+
+// @desc: Global Error Handling Middleware
+app.use((err,req,res,next)=>{
+  res.status(400).json({err});
+});
 
 const PORT = process.env.PORT || 8000;
 
