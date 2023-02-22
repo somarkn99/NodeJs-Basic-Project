@@ -13,6 +13,8 @@ dbConnection();
 const app = express();
 
 // Middleware
+app.use(express.json()); // Parsing JSON request (to JS Object)
+
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
     console.log(`You App is running in ${process.env.NODE_ENV} mode`);
