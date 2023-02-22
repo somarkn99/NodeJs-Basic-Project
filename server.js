@@ -20,6 +20,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Routes
+app.all('*',(req, res, next)=>{
+  // Create error and send it to error handling middleware
+  const err = new Error(`Can't find this route: ${req.originalUrl}`);
+  next(err.message);
+});
 
 // @desc: Global Error Handling Middleware
 app.use((err,req,res,next)=>{
