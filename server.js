@@ -15,7 +15,9 @@ const app = express();
 
 // Middleware
 // @desc: Parsing JSON request (to JS Object)
-app.use(express.json()); 
+// @Security: for security reasons we limit size bode
+// @link: https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html#set-request-size-limits
+app.use(express.json({ limit: '20kb' }));
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
